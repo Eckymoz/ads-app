@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\Ads;
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
-class AdsTableSeeder extends Seeder
+class CategorySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Ads::factory(10)->create();
+        Category::factory()->count(10)->create();
     }
 }
