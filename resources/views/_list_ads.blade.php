@@ -6,7 +6,7 @@
                     <div class="row g-0">
                         <div class="col-auto">
                             <div class="card-body">
-                                <div class="avatar avatar-md"
+                                <div class="avatar avatar-xl"
                                      style="background-image: url('{{ $announcement->image }}')">
                                 </div>
                             </div>
