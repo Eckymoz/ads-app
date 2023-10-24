@@ -14,7 +14,7 @@ class HomeController extends Controller
 
     public function index(): Renderable
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::orderBy('created_at', 'desc')->get();
 
         return view('home', compact('announcements'));
     }
