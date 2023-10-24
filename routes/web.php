@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,5 +23,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/announcements',               [AnnouncementsController::class, 'store'])  ->name('announcements.store');
-Route::put('/announcements/{announcement}', [AnnouncementsController::class, 'update']) ->name('announcements.update');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/announcements/create', [AnnouncementsController::class, 'create'])->name('announcements.create');
+    Route::post('/announcements', [AnnouncementsController::class, 'store'])->name('announcements.store');
+    Route::put('/announcements/{announcement}', [AnnouncementsController::class, 'update'])->name('announcements.update');
+});
