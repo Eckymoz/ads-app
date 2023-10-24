@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="page-wrapper">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
         @include('_filter_ads')
         @include('_list_ads')
