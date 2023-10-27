@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Services\AnnouncementService;
+use App\Models\Category;
 
 class AnnouncementsController extends Controller
 {
@@ -16,14 +17,17 @@ class AnnouncementsController extends Controller
 
     public function create()
     {
-        return view('announcements.create');
+        $categories = Category::all();
+
+        return view('announcements.create', compact('categories'));
     }
 
     public function store(AnnouncementRequest $request)
     {
         $data = $request->validated();
         $user = auth()->user();
-        $user->announcements()->create($data);
+
+        $this->announcementService->createAnnouncement($user, $data);
 
         $request->session()->flash('success', 'Votre annonce a été créée avec succès.');
 

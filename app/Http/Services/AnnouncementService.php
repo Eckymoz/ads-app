@@ -13,9 +13,9 @@ class AnnouncementService
         $this->announcementRepository = $announcementRepository;
     }
 
-    public function createAnnouncement(array $data)
+    public function createAnnouncement($user, array $data)
     {
-        return $this->announcementRepository->create($data);
+        return $this->announcementRepository->create($user, $data);
     }
 
     public function updateAnnouncement($id, array $data)
