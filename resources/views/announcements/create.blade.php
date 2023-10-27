@@ -35,9 +35,21 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Image</label>
                             <div class="col">
-                                <input type="file" class="form-control" name="image" accept="image/*">
+                                <input type="file" class="form-control" name="image">
                                 <small class="form-hint">Formats autorisés : jpeg, png, jpg, gif (max 2048 KB).</small>
                             </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-3 form-label">Catégories</label>
+                            <div class="col">
+                                <select type="text" class="form-select" id="select-tags" multiple>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                         </div>
                     </div>
 
@@ -50,3 +62,15 @@
     </div>
 
 @endsection
+
+
+@section('js')
+    <script type="module">
+        document.addEventListener('DOMContentLoaded', function () {
+            new TomSelect("#select-tags", {
+                maxItems: 3
+            });
+        });
+    </script>
+@endsection
+
