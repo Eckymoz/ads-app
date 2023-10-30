@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AnnouncementRequest;
 use App\Http\Services\AnnouncementService;
+use App\Models\Announcement;
 use App\Models\Category;
 
 class AnnouncementsController extends Controller
@@ -15,34 +16,47 @@ class AnnouncementsController extends Controller
         $this->announcementService = $announcementService;
     }
 
-    public function create()
-    {
+    public function create() {
+
         $categories = Category::all();
 
         return view('announcements.create', compact('categories'));
     }
 
-    public function store(AnnouncementRequest $request)
-    {
-        $data = $request->validated();
-        $user = auth()->user();
+    public function show(Announcement $announcement) {
 
-        $this->announcementService->createAnnouncement($user, $data);
+        return view('announcements.show', compact('announcement'));
+    }
+
+    public function store(AnnouncementRequest $request) {
+
+        $data          = $request->validated();
+        $user          = auth()->user();
+        $categoryNames = $request->categories;
+
+        $this->announcementService->createAnnouncement($user, $data, $categoryNames);
 
         $request->session()->flash('success', 'Votre annonce a été créée avec succès.');
 
         return redirect()->route('home');
     }
 
-    public function update(AnnouncementRequest $request, $id)
+    public function edit(Announcement $announcement) {
+
+        $categories = Category::all();
+
+        $announcementCategories = $announcement->categories;
+
+        return view('announcements.edit', compact('announcement','categories', 'announcementCategories'));
+    }
+    public function update(AnnouncementRequest $request, $announcement)
     {
         $data = $request->validated();
-        $announcement = $this->announcementService->updateAnnouncement($id, $data);
+        $categoryNames = $request->categories;
+        $this->announcementService->updateAnnouncement($announcement, $data, $categoryNames);
 
-        if ($announcement) {
-            return response()->json($announcement);
-        } else {
-            return response()->json(['message' => 'Announcement not found'], 404);
-        }
+        $request->session()->flash('success', 'Votre annonce a été mise à jour avec succès.');
+
+        return redirect()->route('home');
     }
 }

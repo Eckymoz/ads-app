@@ -22,7 +22,13 @@ class AnnouncementRepository
         $announcement = Announcement::find($id);
 
         if ($announcement) {
-            $announcement->update($data);
+            $announcement->update([
+                'title'       => $data['title'],
+                'description' => $data['description'],
+                'budget'      => $data['budget'],
+                'image'       => $data['image']->get(),
+            ]);
+
             return $announcement;
         }
 

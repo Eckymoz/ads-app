@@ -18,4 +18,10 @@ class Announcement extends Model
     {
         return $this->belongsToMany(Category::class, 'announcements_categories');
     }
+
+    public function attachCategories(array $categoryNames)
+    {
+        $categories = Category::whereIn('name', $categoryNames)->get();
+        $this->categories()->sync($categories);
+    }
 }

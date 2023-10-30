@@ -4,39 +4,44 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form class="card" method="POST" action="{{ route('announcements.store') }}" enctype="multipart/form-data">
+                <form class="card" method="POST" action="{{ route('announcements.update', ['announcement' => $announcement->id, 'categories' => $categories]) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
+
                     <div class="card-header">
-                        <h3 class="card-title">Créer une nouvelle annonce</h3>
+                        <h3 class="card-title">Modifier l'annonce</h3>
                     </div>
 
                     <div class="card-body">
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label required">Titre</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="title" value="{{ old('title') }}" required>
+                                <input type="text" class="form-control" name="title" value="{{ $announcement->title }}" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Description</label>
                             <div class="col">
-                                <textarea class="form-control" name="description">{{ old('description') }}</textarea>
+                                <textarea class="form-control" name="description">{{ $announcement->description }}</textarea>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Budget</label>
                             <div class="col">
-                                <input type="number" class="form-control" name="budget" value="{{ old('budget') }}">
+                                <input type="number" class="form-control" name="budget" value="{{ $announcement->budget }}">
                             </div>
                         </div>
 
                         <div class="mb-3 row">
-                            <label class="col-3 col-form-label">Image</label>
+                            <label class="col-3 col-form-label">Image actuelle</label>
                             <div class="col">
-                                <input type="file" class="form-control" name="image">
-                                <small class="form-hint">Formats autorisés : jpeg, png, jpg, gif (max 2048 KB).</small>
+                                @if($announcement->image)
+                                    <img src="data:image/png;base64,{{ base64_encode($announcement->image) }}" alt="Image de l'annonce">
+                                @else
+                                    Aucune image disponible
+                                @endif
                             </div>
                         </div>
 
@@ -45,24 +50,21 @@
                             <div class="col">
                                 <select type="text" name="categories[]" class="form-select" id="categories" multiple>
                                     @foreach ($categories as $category)
-                                        <option value="{{ $category->name }}">{{ $category->name }}</option>
+                                        <option value="{{ $category->name }}" @if($announcementCategories->contains('id', $category->id)) selected @endif>{{ $category->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-
                         </div>
                     </div>
 
                     <div class="card-footer text-end">
-                        <button type="submit" class="btn btn-primary">Créer</button>
+                        <button type="submit" class="btn btn-primary">Mettre à jour</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-
 @endsection
-
 
 @section('js')
     <script type="module">
@@ -73,4 +75,3 @@
         });
     </script>
 @endsection
-

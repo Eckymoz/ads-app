@@ -13,14 +13,20 @@ class AnnouncementService
         $this->announcementRepository = $announcementRepository;
     }
 
-    public function createAnnouncement($user, array $data)
+    public function createAnnouncement($user, array $data, array $categoryNames)
     {
-        return $this->announcementRepository->create($user, $data);
+        $announcement = $this->announcementRepository->create($user, $data);
+        $announcement->attachCategories($categoryNames);
+
+        return $announcement;
     }
 
-    public function updateAnnouncement($id, array $data)
+    public function updateAnnouncement($id, array $data, array $categoryNames)
     {
-        return $this->announcementRepository->update($id, $data);
+        $announcement = $this->announcementRepository->update($id, $data);
+        $announcement->attachCategories($categoryNames);
+
+        return $announcement;
     }
 
 }

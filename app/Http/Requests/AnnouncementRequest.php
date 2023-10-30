@@ -26,6 +26,7 @@ class AnnouncementRequest extends FormRequest
             'description' => 'string',
             'budget'      => 'integer',
             'image'       => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'categories'  => 'array',
         ];
     }
 }
