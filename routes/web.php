@@ -24,7 +24,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/announcements/create', [AnnouncementsController::class, 'create'])->name('announcements.create');
-    Route::post('/announcements', [AnnouncementsController::class, 'store'])->name('announcements.store');
-    Route::put('/announcements/{announcement}', [AnnouncementsController::class, 'update'])->name('announcements.update');
+    Route::get('/announcements/create',                [AnnouncementsController::class, 'create']) ->name('announcements.create');
+    Route::get('/announcements/{announcement}/edit',   [AnnouncementsController::class, 'edit'])   ->name('announcements.edit');
+    Route::get('/announcements/{announcement}',        [AnnouncementsController::class, 'show'])   ->name('announcements.show');
+    Route::post('/announcements',                      [AnnouncementsController::class, 'store'])  ->name('announcements.store');
+    Route::put('/announcements/{announcement}/update', [AnnouncementsController::class, 'update']) ->name('announcements.update');
 });
