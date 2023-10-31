@@ -23,7 +23,7 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Description</label>
                             <div class="col">
-                                <textarea class="form-control" name="description">{{ $announcement->description }}</textarea>
+                                <div id="quill-editor"></div>
                             </div>
                         </div>
 
@@ -71,6 +71,25 @@
         document.addEventListener('DOMContentLoaded', function () {
             new TomSelect("#categories", {
                 maxItems: 3
+            });
+
+            const quillEditor = new Quill('#quill-editor', {
+                modules: {
+                    syntax: false,
+                },
+                theme: 'snow'
+            });
+
+            const existingContent = `{!! $announcement->description !!}`;
+            quillEditor.clipboard.dangerouslyPasteHTML(existingContent);
+
+            quillEditor.on('text-change', function () {
+                const quillContent = quillEditor.root.innerHTML;
+                const updatedContentDiv = document.querySelector('.updated-content');
+
+                if (updatedContentDiv) {
+                    updatedContentDiv.innerHTML = quillContent;
+                }
             });
         });
     </script>

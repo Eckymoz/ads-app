@@ -11,7 +11,7 @@ class AnnouncementRepository
     {
         return $user->announcements()->create([
             'title'       => $data['title'],
-            'description' => $data['description'],
+            'description' => strip_tags($data['description']),
             'budget'      => $data['budget'],
             'image'       => $data['image']->get(),
         ]);
@@ -24,7 +24,7 @@ class AnnouncementRepository
         if ($announcement) {
             $announcement->update([
                 'title'       => $data['title'],
-                'description' => $data['description'],
+                'description' => strip_tags($data['description']),
                 'budget'      => $data['budget'],
                 'image'       => $data['image']->get(),
             ]);
