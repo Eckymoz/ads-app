@@ -7,7 +7,8 @@
                 <div class="row g-0">
                     <div class="col-12 col-lg-5 col-xl-3 border-end">
                         <div class="card-body p-0 scrollable text-center">
-                            <div class="avatar avatar-xl mt-3" style="background-image: url('data:image/jpeg;base64, {{ base64_encode($announcement->image) }}'); background-size: cover;">
+                            <div class="avatar avatar-xl mt-3"
+                                 style="background-image: url('data:image/jpeg;base64, {{ base64_encode($announcement->image) }}'); background-size: cover;">
                             </div>
                             <div class="mt-3 text-center">
                                 {{ $announcement->user->name }}
@@ -24,8 +25,10 @@
                                     <div>
                                         {{ $announcement->title }}
                                     </div>
-                                    <div>
-                                        {{ $announcement->description }}
+                                    <div class="mb-3 row">
+                                        <div class="col">
+                                            {!! $announcement->description !!}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -34,4 +37,4 @@
                 </div>
             </div>
         </div>
-@endsection
+        @endsection

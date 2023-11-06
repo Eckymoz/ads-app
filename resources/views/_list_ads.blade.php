@@ -17,7 +17,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <h3 class="mb-0"><a href="{{ route('announcements.edit', ['announcement' => $announcement->id]) }}">{{ $announcement->title }}</a></h3>
-                                            <p>{{ $announcement->description }}</p>
+                                            <p>{!! $announcement->description !!}</p>
                                         </div>
                                         <div class="col-auto fs-3 text-green">{{ $announcement->budget }} €</div>
                                     </div>
