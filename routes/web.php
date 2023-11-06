@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/user/{user}/edit',                    [UsersController::class, 'edit']) ->name('users.edit');
+
     Route::get('/announcements/create',                [AnnouncementsController::class, 'create']) ->name('announcements.create');
     Route::get('/announcements/{announcement}/edit',   [AnnouncementsController::class, 'edit'])   ->name('announcements.edit');
     Route::get('/announcements/{announcement}',        [AnnouncementsController::class, 'show'])   ->name('announcements.show');
