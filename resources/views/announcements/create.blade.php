@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <form class="card" method="POST" action="{{ route('announcements.store') }}" enctype="multipart/form-data" style="height: 700px">
+                <form class="card" method="POST" action="{{ route('announcements.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
                         <h3 class="card-title">Créer une nouvelle annonce</h3>
@@ -44,10 +44,11 @@
                             </div>
                         </div>
 
-                            <div class="col">
-                                <textarea name="description" id="editor" class="hidden-editor" style="display: none;"></textarea>
-                                <div id="quill-editor" style="max-height: 200px; height: 200px; overflow-y: auto;"></div>
-                            </div>
+                        <div id="editor-container mt-3">
+                            <div id="quill-editor" style="height: 500px"></div>
+                        </div>
+
+                        <div id="preview-container" style="display: none;"></div>
 
                     </div>
 
@@ -72,8 +73,35 @@
             let quill = new Quill('#quill-editor', {
                 modules: {
                     syntax: false,
+                    toolbar: [
+                        [{ 'header': '1' }, { 'header': '2' }],
+                        ['bold', 'italic', 'underline'],
+                        ['image', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                        ['blockquote', 'code-block'],
+                        [{ 'align': [] }],
+                        ['link', 'video'],
+                        ['clean'],
+                        [{ 'preview': 'preview' }],
+                    ]
                 },
                 theme: 'snow'
+            });
+
+
+            quill.getModule('toolbar').addHandler('preview', function () {
+                const editorContainer = document.querySelector('.ql-editor');
+                const previewContainer = document.querySelector('.preview-container');
+
+                if (editorContainer.style.display === 'none') {
+                    editorContainer.style.display  = 'block';
+                    previewContainer.style.display = 'none';
+                } else {
+                    editorContainer.style.display  = 'none';
+                    previewContainer.style.display = 'block';
+                    previewContainer.innerHTML = quill.root.innerHTML;
+                }
             });
 
             quill.on('text-change', function() {
