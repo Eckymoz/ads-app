@@ -6,6 +6,8 @@ use App\Http\Requests\AnnouncementRequest;
 use App\Http\Services\AnnouncementService;
 use App\Models\Announcement;
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AnnouncementsController extends Controller
 {
@@ -49,8 +51,7 @@ class AnnouncementsController extends Controller
 
         return view('announcements.edit', compact('announcement','categories', 'announcementCategories'));
     }
-    public function update(AnnouncementRequest $request, $announcement)
-    {
+    public function update(AnnouncementRequest $request, $announcement) {
         $data          = $request->validated();
         $categoryNames = $request->categories;
         $this->announcementService->updateAnnouncement($announcement, $data, $categoryNames);
@@ -60,7 +61,13 @@ class AnnouncementsController extends Controller
         return redirect()->route('home');
     }
 
-    public function userAnnouncements() {
+    public function userAnnouncements($id) {
 
+        $user = User::findOrFail($id);
+
+        $announcements = Announcement::where('user_id', $user->id)->get();
+
+        return view('announcements.user', ['announcements' => $announcements]);
     }
+
 }

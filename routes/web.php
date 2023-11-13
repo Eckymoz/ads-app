@@ -32,4 +32,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/announcements/{announcement}',        [AnnouncementsController::class, 'show'])   ->name('announcements.show');
     Route::post('/announcements',                      [AnnouncementsController::class, 'store'])  ->name('announcements.store');
     Route::put('/announcements/{announcement}/update', [AnnouncementsController::class, 'update']) ->name('announcements.update');
+
+    Route::get('/announcements/user/{id}', [AnnouncementsController::class, 'userAnnouncements'])->name('announcements.user');
 });

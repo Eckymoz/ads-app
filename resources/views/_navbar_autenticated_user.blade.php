@@ -75,7 +75,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <a href="{{ route('users.edit', Auth::user()) }}" class="dropdown-item">Mon
                                 profil</a>
-                            <a href="#" class="dropdown-item">Mes annonces</a>
+                            <a href="{{ route('announcements.user', Auth::user()) }}" class="dropdown-item">Mes annonces</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
