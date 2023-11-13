@@ -13,20 +13,44 @@ class AnnouncementService
         $this->announcementRepository = $announcementRepository;
     }
 
-    public function createAnnouncement($user, array $data, array $categoryNames)
+    public function createAnnouncement($user, array $data, array|null $categoryNames)
     {
+        $data         = $this->handleImageUploadIfNull($data, 'image', 'images/default-image.jpg');
         $announcement = $this->announcementRepository->create($user, $data);
-        $announcement->attachCategories($categoryNames);
+
+        $this->attachCategoriesIfNotEmpty($announcement, $categoryNames);
 
         return $announcement;
     }
 
-    public function updateAnnouncement($id, array $data, array $categoryNames)
+    public function updateAnnouncement($id, array $data, array|null $categoryNames)
     {
+        $data         = $this->handleImageUploadIfNull($data, 'image', 'images/default-image.jpg');
         $announcement = $this->announcementRepository->update($id, $data);
-        $announcement->attachCategories($categoryNames);
+        $this->attachCategoriesIfNotEmpty($announcement, $categoryNames);
 
         return $announcement;
     }
 
+    private function handleImageUploadIfNull(array $data, $key, $defaultValue)
+    {
+        if (!empty($data[$key])) {
+            if ($data['image']) {
+                $imagePath = $data['image']->store('public');
+                $data[$key] = $imagePath;
+            }
+        } else {
+            $data[$key] = $defaultValue;
+        }
+
+        return $data;
+    }
+
+
+    private function attachCategoriesIfNotEmpty($announcement, $categoryNames)
+    {
+        if (!empty($categoryNames)) {
+            $announcement->attachCategories($categoryNames);
+        }
+    }
 }

@@ -51,12 +51,16 @@ class AnnouncementsController extends Controller
     }
     public function update(AnnouncementRequest $request, $announcement)
     {
-        $data = $request->validated();
+        $data          = $request->validated();
         $categoryNames = $request->categories;
         $this->announcementService->updateAnnouncement($announcement, $data, $categoryNames);
 
         $request->session()->flash('success', 'Votre annonce a été mise à jour avec succès.');
 
         return redirect()->route('home');
+    }
+
+    public function userAnnouncements() {
+
     }
 }

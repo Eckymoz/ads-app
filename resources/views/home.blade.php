@@ -13,5 +13,7 @@
         @include('_filter_ads')
         @include('_list_ads')
 
+            {{ $announcements->links() }}
+
     </div>
 @endsection

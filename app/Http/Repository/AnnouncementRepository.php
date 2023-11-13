@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AnnouncementRepository
 {
-    public function create($user,array $data)
+    public function create($user, array $data)
     {
         return $user->announcements()->create([
             'title'       => $data['title'],
             'description' => strip_tags($data['description']),
             'budget'      => $data['budget'],
-            'image'       => $data['image']->get(),
+            'image'       => $data['image'],
         ]);
     }
 
@@ -26,7 +26,7 @@ class AnnouncementRepository
                 'title'       => $data['title'],
                 'description' => strip_tags($data['description']),
                 'budget'      => $data['budget'],
-                'image'       => $data['image']->get(),
+                'image'       => $data['image'],
             ]);
 
             return $announcement;

@@ -7,9 +7,11 @@
                         <div class="row g-0">
                             <div class="col-auto">
                                 <div class="card-body">
-                                    <div class="avatar avatar-xl"
-                                         style="background-image: url('data:image/jpeg;base64, {{ base64_encode($announcement->image) }}')">
-                                    </div>
+                                    @if (Storage::exists('public/' . $announcement->image))
+                                        <div class="avatar avatar-xl" style="background-image: url('{{ asset('storage/'.$announcement->image) }}');"></div>
+                                    @else
+                                        <div class="avatar avatar-xl" style="background-image: url('{{ asset($announcement->image) }}');"></div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col">

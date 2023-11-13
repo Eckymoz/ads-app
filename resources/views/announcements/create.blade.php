@@ -46,9 +46,8 @@
 
                         <div id="editor-container mt-3">
                             <div id="quill-editor" style="height: 500px"></div>
+                            <input type="hidden" name="description" id="description-field">
                         </div>
-
-                        <div id="preview-container" style="display: none;"></div>
 
                     </div>
 
@@ -90,27 +89,8 @@
             });
 
 
-            quill.getModule('toolbar').addHandler('preview', function () {
-                const editorContainer = document.querySelector('.ql-editor');
-                const previewContainer = document.querySelector('.preview-container');
-
-                if (editorContainer.style.display === 'none') {
-                    editorContainer.style.display  = 'block';
-                    previewContainer.style.display = 'none';
-                } else {
-                    editorContainer.style.display  = 'none';
-                    previewContainer.style.display = 'block';
-                    previewContainer.innerHTML = quill.root.innerHTML;
-                }
-            });
-
             quill.on('text-change', function() {
-                const quillContent = quill.root.innerHTML;
-                const updatedContentDiv = document.querySelector('#editor');
-
-                if (updatedContentDiv) {
-                    updatedContentDiv.innerHTML = quillContent;
-                }
+                document.querySelector('#description-field').value = quill.root.innerHTML;
             });
         });
     </script>

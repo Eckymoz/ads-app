@@ -18,16 +18,14 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label required">Titre</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="title" value="{{ $announcement->title }}"
-                                       required>
+                                <input type="text" class="form-control" name="title" value="{{ $announcement->title }}" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Budget</label>
                             <div class="col">
-                                <input type="number" class="form-control" name="budget"
-                                       value="{{ $announcement->budget }}">
+                                <input type="number" class="form-control" name="budget" value="{{ $announcement->budget }}">
                             </div>
                         </div>
 
@@ -37,7 +35,8 @@
                                 <select type="text" name="categories[]" class="form-select" id="categories" multiple>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->name }}"
-                                                @if($announcementCategories->contains('id', $category->id)) selected @endif>{{ $category->name }}</option>
+                                                @if($announcementCategories->contains('id', $category->id)) selected @endif>{{ $category->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -47,8 +46,13 @@
                             <label class="col-3 col-form-label">Image actuelle</label>
                             <div class="col">
                                 @if($announcement->image)
-                                    <img src="data:image/png;base64,{{ base64_encode($announcement->image) }}"
-                                         alt="Image de l'annonce">
+                                    <div class="image-container">
+                                        <img src="{{ asset($announcement->image) }}" alt="Image de l'annonce" class="image-personnalisee" style="height: 200px; width: 200px">
+                                        <label for="image" class="btn btn-ghost-warning">
+                                            Modifier l'image
+                                        </label>
+                                        <input type="file" id="image" name="image" style="display: none;">
+                                    </div>
                                 @else
                                     Aucune image disponible
                                 @endif
@@ -57,8 +61,9 @@
 
                         <div class="mb-3 row">
                             <div class="col">
-                                <div id="quill-editor"
-                                     style="height: 500px; overflow-y: auto;"></div>
+                                <div id="quill-editor" style="height: 500px; overflow-y: auto;"></div>
+                                <input type="hidden" name="description" id="description-field">
+
                             </div>
                         </div>
                     </div>
@@ -78,37 +83,36 @@
             new TomSelect("#categories", {
                 maxItems: 3
             });
+        });
 
-            const quillEditor =  new Quill('#quill-editor', {
-                    modules: {
-                        syntax: false,
-                        toolbar: [
-                            [{ 'header': '1' }, { 'header': '2' }],
-                            ['bold', 'italic', 'underline'],
-                            ['image', 'code-block'],
-                            [{ list: 'ordered' }, { list: 'bullet' }],
-                            [{ 'script': 'sub' }, { 'script': 'super' }],
-                            ['blockquote', 'code-block'],
-                            [{ 'align': [] }],
-                            ['link', 'video'],
-                            ['clean'],
-                            [{ 'preview': 'preview' }],
-                        ]
-                    },
-                    theme: 'snow'
-                });
+        document.addEventListener('DOMContentLoaded', function () {
+            const quill =  new Quill('#quill-editor', {
+                modules: {
+                    syntax: false,
+                    toolbar: [
+                        [{ 'header': '1' }, { 'header': '2' }],
+                        ['bold', 'italic', 'underline'],
+                        ['image', 'code-block'],
+                        [{ list: 'ordered' }, { list: 'bullet' }],
+                        [{ 'script': 'sub' }, { 'script': 'super' }],
+                        ['blockquote', 'code-block'],
+                        [{ 'align': [] }],
+                        ['link', 'video'],
+                        ['clean'],
+                        [{ 'preview': 'preview' }],
+                    ]
+                },
+                theme: 'snow'
+            });
 
             const existingContent = `{!! $announcement->description !!}`;
-            quillEditor.clipboard.dangerouslyPasteHTML(existingContent);
+            quill.clipboard.dangerouslyPasteHTML(existingContent);
 
-            quillEditor.on('text-change', function () {
-                const quillContent = quillEditor.root.innerHTML;
-                const updatedContentDiv = document.querySelector('.updated-content');
+            document.querySelector('#description-field').value = quill.root.innerHTML;
 
-                if (updatedContentDiv) {
-                    updatedContentDiv.innerHTML = quillContent;
-                }
+            quill.on('text-change', function() {
+                document.querySelector('#description-field').value = quill.root.innerHTML;
             });
-        });
+        })
     </script>
 @endsection
