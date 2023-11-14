@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('budget');
-            $table->text('image');
+            $table->string('image')->default('images/default-image.jpg');
             $table->timestamps();
         });
     }
