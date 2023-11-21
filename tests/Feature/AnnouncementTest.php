@@ -16,7 +16,7 @@ it('should create an announcement with validation', function () {
             'description' => 'Example Description',
             'budget'      => 100,
             'image'       => UploadedFile::fake()->image('example.jpg'),
-            'categories' => ['Category1', 'Category2'],
+            'categories'  => ['Category1', 'Category2'],
         ];
 
         $response = $this->post(route('announcements.store'), $data);

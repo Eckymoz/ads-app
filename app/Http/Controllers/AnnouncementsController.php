@@ -52,6 +52,7 @@ class AnnouncementsController extends Controller
         return view('announcements.edit', compact('announcement','categories', 'announcementCategories'));
     }
     public function update(AnnouncementRequest $request, $announcement) {
+
         $data          = $request->validated();
         $categoryNames = $request->categories;
         $this->announcementService->updateAnnouncement($announcement, $data, $categoryNames);
