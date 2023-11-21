@@ -65,8 +65,11 @@
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                            aria-label="Open user menu">
-                                <span class="avatar avatar-sm"
-                                      style="background-image: {{ Auth::user()->avatar }}"></span>
+                            @if (Storage::exists('public/' . Auth::user()->avatar))
+                                <span class="avatar avatar-sm" style="background-image: {{ Auth::user()->avatar }}"></span>
+                            @else
+                                <div class="avatar avatar-sm" style="background-image: url('{{ asset(Auth::user()->avatar) }}');"></div>
+                            @endif
                             <div class="d-none d-xl-block ps-2">
                                 <div>{{ Auth::user()->name }}</div>
                                 <div class="mt-1 small text-secondary"></div>
