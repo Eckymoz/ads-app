@@ -13,7 +13,7 @@
                                     <button class="table-sort" data-sort="sort-title">Titre</button>
                                 </th>
                                 <th>
-                                    <button class="table-sort" data-sort="sort-date">Date</button>
+                                    <button class="table-sort" data-sort="sort-date">Date de creation</button>
                                 </th>
                                 <th>
                                     <button class="table-sort" data-sort="sort-editor">Rédacteur</button>
@@ -21,6 +21,7 @@
                                 <th>
                                     <button class="table-sort" data-sort="sort-editor">Etat</button>
                                 </th>
+                                <th></th>
 
                             </tr>
                             </thead>
@@ -31,6 +32,8 @@
                                     <td> {{ $announcement->created_at }} </td>
                                     <td> {{ $announcement->user->name }} </td>
                                     <td><span class="badge bg-yellow-lt">En attente de validation</span></td>
+                                    <td><a href="{{ route('users.edit', Auth::user()) }}" class="btn btn-primary">Editer</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -40,4 +43,20 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const list = new List('table-default', {
+                sortClass: 'table-sort',
+                listClass: 'table-tbody',
+                valueNames: [ 'sort-name', 'sort-type', 'sort-city', 'sort-score',
+                    { attr: 'data-date', name: 'sort-date' },
+                    { attr: 'data-progress', name: 'sort-progress' },
+                    'sort-quantity'
+                ]
+            });
+        })
+    </script>
 @endsection
