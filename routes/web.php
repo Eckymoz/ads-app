@@ -25,7 +25,6 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/users/{user}/edit',                    [UsersController::class, 'edit']) ->name('users.edit');
 
     Route::get('/announcements/create',                [AnnouncementsController::class, 'create'])           ->name('announcements.create');
     Route::get('/announcements/{announcement}/edit',   [AnnouncementsController::class, 'edit'])             ->name('announcements.edit');
@@ -34,5 +33,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/announcements/{announcement}/update', [AnnouncementsController::class, 'update'])           ->name('announcements.update');
     Route::get('/announcements/user/{id}',             [AnnouncementsController::class, 'userAnnouncements'])->name('announcements.user');
 
+    Route::get('/users/{user}/edit',  [UsersController::class, 'edit'])   ->name('users.edit');
     Route::put('users/{user}/update', [UsersController::class, 'update']) ->name('users.update');
 });
