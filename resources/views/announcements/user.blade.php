@@ -21,7 +21,8 @@
                                 <th>
                                     <button class="table-sort" data-sort="sort-editor">Etat</button>
                                 </th>
-                                <th></th>
+                                <th>
+                                </th>
 
                             </tr>
                             </thead>
@@ -32,7 +33,10 @@
                                     <td> {{ $announcement->created_at }} </td>
                                     <td> {{ $announcement->user->name }} </td>
                                     <td><span class="badge bg-yellow-lt">En attente de validation</span></td>
-                                    <td><a href="{{ route('users.edit', Auth::user()) }}" class="btn btn-primary">Editer</a>
+                                    <td>
+                                        <a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-primary">Editer
+                                            <i class="ti ti-pencil ms-2"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

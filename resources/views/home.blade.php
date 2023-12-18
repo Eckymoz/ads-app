@@ -10,10 +10,8 @@
             </div>
         @endif
 
-        @include('_filter_ads')
-        @include('_list_ads')
-
-            {{ $announcements->links() }}
+        <ads-list :announcements='@json($announcements)' :adscategories='@json($adsCategories)'></ads-list>
 
     </div>
 @endsection
+
