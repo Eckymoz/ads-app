@@ -45,17 +45,31 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Image actuelle</label>
                             <div class="col">
-                                @if($announcement->image)
-                                    <div class="image-container">
-                                        <img src="{{ asset($announcement->image) }}" alt="Image de l'annonce" class="image-personnalisee" style="height: 200px; width: 200px">
-                                        <label for="image" class="btn btn-ghost-warning">
-                                            Modifier l'image
-                                        </label>
-                                        <input type="file" id="image" name="image" style="display: none;">
-                                    </div>
-                                @else
-                                    Aucune image disponible
-                                @endif
+                                    @if($announcement->image)
+                                        @if (Storage::exists('public/' . $announcement->image))
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-xl" style="background-image: url('{{ asset('storage/'.$announcement->image) }}');"></div>
+                                                <div class="ml-3">
+                                                    <label for="image" class="btn btn-ghost-warning">
+                                                        Modifier l'image
+                                                    </label>
+                                                    <input type="file" id="image" name="image" style="display: none;">
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="d-flex align-items-center">
+                                                <div class="avatar avatar-xl" style="background-image: url('{{ asset($announcement->image) }}');"></div>
+                                                <div class="ml-3">
+                                                    <label for="image" class="btn btn-ghost-warning">
+                                                        Modifier l'image
+                                                    </label>
+                                                    <input type="file" id="image" name="image" style="display: none;">
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @else
+                                        Aucune image disponible
+                                    @endif
                             </div>
                         </div>
 
