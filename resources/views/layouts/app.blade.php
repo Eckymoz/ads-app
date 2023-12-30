@@ -17,15 +17,15 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
-<div id="app">
+<body id="app">
+<div>
     @guest
         @include('_navbar_guest')
     @else
         @include('_navbar_autenticated_user')
     @endguest
 
-    <main class="py-4">
+    <main>
         @yield('content')
     </main>
 </div>
