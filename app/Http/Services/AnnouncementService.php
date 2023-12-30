@@ -36,7 +36,7 @@ class AnnouncementService
     {
         if (!empty($data[$key])) {
             if ($data['image']) {
-                $imagePath = $data['image']->store('public');
+                $imagePath = $data['image']->store('images/');
                 $data[$key] = $imagePath;
             }
         } else {
