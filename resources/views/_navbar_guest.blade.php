@@ -17,11 +17,11 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Right Side Of Navbar -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="nav-link" href="{{ route('register') }}">Créer un compte</a>
                 </li>
 
             </ul>
