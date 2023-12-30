@@ -17,8 +17,8 @@ class AnnouncementSeeder extends Seeder
 
         $announcements->each(function ($announcement) {
             $categories = Category::inRandomOrder()->limit(3)->get();
-            $announcement->categories()->attach($categories);
 
+            $announcement->categories()->sync($categories->pluck('id'));
         });
     }
 }
