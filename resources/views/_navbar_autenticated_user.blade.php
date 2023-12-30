@@ -4,6 +4,7 @@
             <div class="container-xl">
                 <!-- Titre du site à gauche -->
                 <a class="navbar-brand me-3" href="{{ route('home') }}">
+                    <img src="{{ asset('images/logo.jpeg') }}" class="navbar-brand-image" alt="Logo">
                     JoinMyCrew
                 </a>
 
@@ -12,11 +13,6 @@
                     <!-- Onglet "Accueil" -->
                     <li class="nav-item @if(request()->routeIs('home')) active @endif">
                         <a class="nav-link" href="{{ route('home') }}">Accueil</a>
-                    </li>
-
-                    <!-- Onglet "Les profils" -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="">Les profils</a>
                     </li>
                 </ul>
 
