@@ -7,7 +7,10 @@ use App\Http\Services\AnnouncementService;
 use App\Models\Announcement;
 use App\Models\Category;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AnnouncementsController extends Controller
 {
@@ -45,8 +48,7 @@ class AnnouncementsController extends Controller
 
     public function edit(Announcement $announcement) {
 
-        $categories = Category::all();
-
+        $categories             = Category::all();
         $announcementCategories = $announcement->categories;
 
         return view('announcements.edit', compact('announcement','categories', 'announcementCategories'));
@@ -69,6 +71,44 @@ class AnnouncementsController extends Controller
         $announcements = Announcement::where('user_id', $user->id)->get();
 
         return view('announcements.user', ['announcements' => $announcements]);
+    }
+
+    public function announcementsFilter(Request $request)
+    {
+        try {
+
+            $categories = $request->input('categories');
+            $minBudget  = $request->input('minBudget');
+            $maxBudget  = $request->input('maxBudget');
+            $adsOrder   = $request->input('adsOrder');
+
+            $page  = $request->input('page', 1);
+            $query = Announcement::with(['categories', 'user']);
+
+            if ($categories !== null) {
+                $query->whereHas('categories', function ($query) use ($categories) {
+                    $query->whereIn('name', $categories);
+                });
+            }
+
+            if ($minBudget !== null && $maxBudget !== null) {
+                $query->whereBetween('budget', [$minBudget, $maxBudget]);
+            }
+
+            if ($adsOrder !== null) {
+                $query->orderBy('created_at', $adsOrder);
+            }
+
+            $announcements = $query->paginate(5, ['*'], 'page', $page);
+
+            return response()->json($announcements);
+
+        } catch (\Exception $e) {
+
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'Erreur interne du serveur'], 500);
+        }
+
     }
 
 }
