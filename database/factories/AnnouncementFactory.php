@@ -19,7 +19,7 @@ class AnnouncementFactory extends Factory
             'title'         => $this->faker->sentence,
             'budget'        => $this->faker->numberBetween(1, 1000),
             'description'   => $this->faker->paragraph,
-            'image'         => $this->faker->imageUrl(640, 480, 'animals', true),
+            'image'         => 'images/default-image.jpg',
         ];
     }
 }
