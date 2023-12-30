@@ -47,9 +47,8 @@
                             booster votre projet et recruter des membres.</p>
                         <div>
                             <div class="row g-2">
-                                <div class="col-auto">
-                                    <input type="text" class="form-control w-auto" name="email"
-                                           value="{{$user->email}}">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="email" value="{{$user->email}}">
                                 </div>
                             </div>
                         </div>
