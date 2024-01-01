@@ -5,7 +5,7 @@ const props      = defineProps(['adscategories']);
 const categories = ref('');
 const minBudget  = ref('');
 const maxBudget  = ref('');
-const adsOrder   = ref('');
+const adsOrder   = ref('desc');
 const emit       = defineEmits(['applyFilters']);
 
 
@@ -56,8 +56,7 @@ const applyFilters = () => {
                 </div>
 
                 <div class="filter-section">
-                    <select class="form-select" id="adsOrder" v-model="adsOrder" name="adsOrder" autocomplete="off">
-                        <option readonly value="" selected hidden>Date de parution</option>
+                    <select class="form-select" id="adsOrder" v-model="adsOrder" name="adsOrder">
                         <option value="desc">Plus récent</option>
                         <option value="asc">Plus ancien</option>
                     </select>
