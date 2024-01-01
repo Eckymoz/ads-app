@@ -40,6 +40,7 @@ const changePage = async (page, filters) => {
                     <Bootstrap5Pagination
                         :data="showFiltered ? filteredAnnouncements : props.announcements"
                         :limit="5"
+                        :align="'center'"
                         @pagination-change-page="changePage"
                     />
 
