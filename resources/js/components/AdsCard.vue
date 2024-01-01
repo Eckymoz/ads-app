@@ -44,10 +44,6 @@ const formatCreatedAt = (createdAt) => {
                                 <i class="ti ti-calendar-event"></i>
                                 <span class="fs-5">{{ formatCreatedAt(announcement.created_at) }}</span>
                             </div>
-                            <div class="list-inline-item">
-                                <i class="ti ti-eye"></i>
-                                <span class="fs-5"></span>
-                            </div>
                         </div>
                         <div class="mt-3 list mb-0 text-secondary d-block d-sm-none">
                             <!-- Ici, vous pouvez inclure des informations supplémentaires pour les écrans de petite taille -->
