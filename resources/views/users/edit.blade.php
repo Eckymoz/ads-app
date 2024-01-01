@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-xl">
+    <div class="container-xl py-4">
         @if (session('success'))
             <div class="d-flex justify-content-center align-items-center">
                 <div class="alert alert-success">
