@@ -85,7 +85,7 @@ class AnnouncementsController extends Controller
             $page  = $request->input('page', 1);
             $query = Announcement::with(['categories', 'user']);
 
-            if ($categories !== null) {
+            if (!empty($categories)) {
                 $query->whereHas('categories', function ($query) use ($categories) {
                     $query->whereIn('name', $categories);
                 });
