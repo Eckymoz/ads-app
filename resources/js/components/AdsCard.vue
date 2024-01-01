@@ -38,11 +38,11 @@ const formatCreatedAt = (createdAt) => {
                         <div class="mt-3 list-inline list-inline-dots mb-0 text-secondary d-sm-block d-none">
                             <div class="list-inline-item">
                                 <i class="ti ti-user"></i>
-                                <span class="fs-5">{{ announcement.user.name }}</span>
+                                <span class="fs-5 ms-1">{{ announcement.user.name }}</span>
                             </div>
                             <div class="list-inline-item">
                                 <i class="ti ti-calendar-event"></i>
-                                <span class="fs-5">{{ formatCreatedAt(announcement.created_at) }}</span>
+                                <span class="fs-5 ms-1">{{ formatCreatedAt(announcement.created_at) }}</span>
                             </div>
                         </div>
                         <div class="mt-3 list mb-0 text-secondary d-block d-sm-none">
