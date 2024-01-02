@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row justify-content-center py-4">
             <div class="col-md-12">
                 <form class="card" method="POST"
                       action="{{ route('announcements.update', ['announcement' => $announcement->id, 'categories' => $categories]) }}"
@@ -48,22 +48,22 @@
                                     @if($announcement->image)
                                         @if (Storage::exists('public/' . $announcement->image))
                                             <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-xl" style="background-image: url('{{ asset('storage/'.$announcement->image) }}');"></div>
+                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset('storage/'.$announcement->image) }}');"></img>
                                                 <div class="ml-3">
-                                                    <label for="image" class="btn btn-ghost-warning">
+                                                    <label for="upload_image" class="btn btn-ghost-warning">
                                                         Modifier l'image
                                                     </label>
-                                                    <input type="file" id="image" name="image" style="display: none;">
+                                                    <input type="file" id="upload_image" name="image" style="display: none;" onchange="previewImage()">
                                                 </div>
                                             </div>
                                         @else
                                             <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-xl" style="background-image: url('{{ asset($announcement->image) }}');"></div>
+                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset($announcement->image) }}');"></img>
                                                 <div class="ml-3">
-                                                    <label for="image" class="btn btn-ghost-warning">
+                                                    <label for="upload_image" class="btn btn-ghost-warning">
                                                         Modifier l'image
                                                     </label>
-                                                    <input type="file" id="image" name="image" style="display: none;">
+                                                    <input type="file" id="upload_image" name="image" style="display: none;" onchange="previewImage()">
                                                 </div>
                                             </div>
                                         @endif
@@ -92,6 +92,7 @@
 @endsection
 
 @section('js')
+    <script src="{{ asset('js/previewImage.js') }}"></script>
     <script type="module">
         document.addEventListener('DOMContentLoaded', function () {
             new TomSelect("#categories", {
