@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
-it('should create an announcement with validation', function () {
+it('should create an ad with validation', function () {
         Storage::fake('public');
         $user = User::factory()->create();
         $this->actingAs($user);
@@ -19,11 +19,11 @@ it('should create an announcement with validation', function () {
             'categories'  => ['Category1', 'Category2'],
         ];
 
-        $response = $this->post(route('announcements.store'), $data);
+        $response = $this->post(route('ads.store'), $data);
 
         $response->assertStatus(302);
 
-        $this->assertDatabaseHas('announcements', [
+        $this->assertDatabaseHas('ads', [
             'user_id'     => $user->id,
             'title'       => 'Example Title',
             'description' => 'Example Description',
@@ -44,7 +44,7 @@ it('should fail if title is not a string', function () {
         'categories' => ['Category1', 'Category2'],
     ];
 
-    $response = $this->post(route('announcements.store'), $data);
+    $response = $this->post(route('ads.store'), $data);
 
     $response->assertSessionHasErrors('title');
 });
@@ -62,7 +62,7 @@ it('should fail if title is missing', function () {
         'categories' => ['Category1', 'Category2'],
     ];
 
-    $response = $this->post(route('announcements.store'), $data);
+    $response = $this->post(route('ads.store'), $data);
 
     $response->assertSessionHasErrors('title');
 });
@@ -80,7 +80,7 @@ it('should fail if title exceeds 255 characters', function () {
         'categories' => ['Category1', 'Category2'],
     ];
 
-    $response = $this->post(route('announcements.store'), $data);
+    $response = $this->post(route('ads.store'), $data);
 
     $response->assertSessionHasErrors('title');
 });
@@ -98,7 +98,7 @@ it('should fail if image is not an image', function () {
         'categories' => ['Category1', 'Category2'],
     ];
 
-    $response = $this->post(route('announcements.store'), $data);
+    $response = $this->post(route('ads.store'), $data);
 
     $response->assertSessionHasErrors('image');
 });
@@ -118,7 +118,7 @@ it('should fail if image exceeds 2048 KB', function () {
         'categories' => ['Category1', 'Category2'],
     ];
 
-    $response = $this->post(route('announcements.store'), $data);
+    $response = $this->post(route('ads.store'), $data);
 
     $response->assertSessionHasErrors('image');
 });
