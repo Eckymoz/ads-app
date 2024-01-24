@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model
+class Ads extends Model
 {
     use HasFactory;
     protected $guarded = [];
@@ -16,7 +16,7 @@ class Announcement extends Model
     }
     public function categories()
     {
-        return $this->belongsToMany(Category::class, 'announcements_categories');
+        return $this->belongsToMany(Category::class, 'ads_categories');
     }
 
     public function attachCategories(array $categoryNames)

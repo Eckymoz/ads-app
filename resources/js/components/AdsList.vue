@@ -4,14 +4,14 @@ import AdsFilters from './AdsFilters.vue';
 import AdsCard from './AdsCard.vue';
 import { Bootstrap5Pagination } from 'laravel-vue-pagination';
 
-const props                 = defineProps(['announcements', 'adscategories']);
+const props                 = defineProps(['ads', 'adscategories']);
 const filteredAnnouncements = ref([]);
 const showFiltered          = ref(false);
 const currentPage = ref(1);
 
 const applyFilters = async (filters) => {
     try {
-        const response = await axios.post(`/announcements/filters?page=${currentPage.value}`, filters);
+        const response = await axios.post(`/ads/filters?page=${currentPage.value}`, filters);
         filteredAnnouncements.value = response.data;
         showFiltered.value = true;
 
@@ -34,11 +34,11 @@ const changePage = async (page, filters) => {
         <div class="row justify-content-center">
             <div class="col-md-6 mt-4">
                 <div class="space-y">
-                    <div v-for="announcement in (showFiltered ? filteredAnnouncements.data : props.announcements.data)" :key="announcement.id" class="card">
-                        <AdsCard :announcement="announcement"/>
+                    <div v-for="ad in (showFiltered ? filteredAnnouncements.data : props.ads.data)" :key="ad.id" class="card">
+                        <AdsCard :ad="ad"/>
                     </div>
                     <Bootstrap5Pagination
-                        :data="showFiltered ? filteredAnnouncements : props.announcements"
+                        :data="showFiltered ? filteredAnnouncements : props.ads"
                         :limit="5"
                         :align="'center'"
                         @pagination-change-page="changePage"

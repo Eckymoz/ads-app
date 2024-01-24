@@ -8,10 +8,10 @@
                     <div class="col-12 col-lg-5 col-xl-3 border-end">
                         <div class="card-body p-0 scrollable text-center">
                             <div class="avatar avatar-xl mt-3"
-                                 style="background-image: url('data:image/jpeg;base64, {{ base64_encode($announcement->image) }}'); background-size: cover;">
+                                 style="background-image: url('data:image/jpeg;base64, {{ base64_encode($ad->image) }}'); background-size: cover;">
                             </div>
                             <div class="mt-3 text-center">
-                                {{ $announcement->user->name }}
+                                {{ $ad->user->name }}
                             </div>
                             <div class="nav flex-column nav-pills" role="tablist">
 
@@ -23,11 +23,11 @@
                             <div class="chat">
                                 <div class="chat-bubbles">
                                     <div>
-                                        {{ $announcement->title }}
+                                        {{ $ad->title }}
                                     </div>
                                     <div class="mb-3 row">
                                         <div class="col">
-                                            {!! $announcement->description !!}
+                                            {!! $ad->description !!}
                                         </div>
                                     </div>
                                 </div>

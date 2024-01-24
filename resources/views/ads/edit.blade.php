@@ -5,7 +5,7 @@
         <div class="row justify-content-center py-4">
             <div class="col-md-12">
                 <form class="card" method="POST"
-                      action="{{ route('announcements.update', ['announcement' => $announcement->id, 'categories' => $categories]) }}"
+                      action="{{ route('ads.update', ['ad' => $ad->id, 'categories' => $categories]) }}"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -18,14 +18,14 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label required">Titre</label>
                             <div class="col">
-                                <input type="text" class="form-control" name="title" value="{{ $announcement->title }}" required>
+                                <input type="text" class="form-control" name="title" value="{{ $ad->title }}" required>
                             </div>
                         </div>
 
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Budget</label>
                             <div class="col">
-                                <input type="number" class="form-control" name="budget" value="{{ $announcement->budget }}">
+                                <input type="number" class="form-control" name="budget" value="{{ $ad->budget }}">
                             </div>
                         </div>
 
@@ -35,7 +35,7 @@
                                 <select type="text" name="categories[]" class="form-select" id="categories" multiple>
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->name }}"
-                                                @if($announcementCategories->contains('id', $category->id)) selected @endif>{{ $category->name }}
+                                                @if($adCategories->contains('id', $category->id)) selected @endif>{{ $category->name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -45,10 +45,10 @@
                         <div class="mb-3 row">
                             <label class="col-3 col-form-label">Image actuelle</label>
                             <div class="col">
-                                    @if($announcement->image)
-                                        @if (Storage::exists('public/' . $announcement->image))
+                                    @if($ad->image)
+                                        @if (Storage::exists($ad->image))
                                             <div class="d-flex align-items-center">
-                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset('storage/'.$announcement->image) }}');"></img>
+                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset('storage/'. $ad->image) }}');"></img>
                                                 <div class="ml-3">
                                                     <label for="upload_image" class="btn btn-ghost-warning">
                                                         Modifier l'image
@@ -58,7 +58,7 @@
                                             </div>
                                         @else
                                             <div class="d-flex align-items-center">
-                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset($announcement->image) }}');"></img>
+                                                <img class="avatar avatar-xl" id="image_preview" style="background-image: url('{{ asset($ad->image) }}');"></img>
                                                 <div class="ml-3">
                                                     <label for="upload_image" class="btn btn-ghost-warning">
                                                         Modifier l'image
@@ -120,7 +120,7 @@
                 theme: 'snow'
             });
 
-            const existingContent = `{!! $announcement->description !!}`;
+            const existingContent = `{!! $ad->description !!}`;
             quill.clipboard.dangerouslyPasteHTML(existingContent);
 
             document.querySelector('#description-field').value = quill.root.innerHTML;

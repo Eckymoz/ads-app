@@ -2,7 +2,7 @@
 
 namespace App\Http\Services;
 
-use App\Http\Repository\AnnouncementRepository;
+use App\Http\Repository\AdRepository;
 use App\Http\Repository\UserRepository;
 
 class UserService

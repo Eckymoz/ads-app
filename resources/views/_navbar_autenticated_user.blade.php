@@ -19,8 +19,8 @@
                 <!-- Actions à droite de la navbar -->
                 <ul class="navbar-nav">
                     <!-- "Créer une annonce" -->
-                    <li class="nav-item me-3 @if(request()->routeIs('announcements.create')) active @endif">
-                        <a href="{{ route('announcements.create') }}" class="nav-link">
+                    <li class="nav-item me-3 @if(request()->routeIs('ads.create')) active @endif">
+                        <a href="{{ route('ads.create') }}" class="nav-link">
                             Créer une nouvelle annonce
                         </a>
                     </li>
@@ -74,7 +74,7 @@
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                             <a href="{{ route('users.edit', Auth::user()) }}" class="dropdown-item">Mon
                                 profil</a>
-                            <a href="{{ route('announcements.user', Auth::user()) }}" class="dropdown-item">Mes annonces</a>
+                            <a href="{{ route('ads.user', Auth::user()) }}" class="dropdown-item">Mes annonces</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();

@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Announcement;
+use App\Models\Ads;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Announcement>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Ads>
  */
-class AnnouncementFactory extends Factory
+class AdsFactory extends Factory
 {
-    protected $model = Announcement::class;
+    protected $model = Ads::class;
 
     public function definition(): array
     {

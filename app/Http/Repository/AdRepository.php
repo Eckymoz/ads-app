@@ -2,14 +2,14 @@
 
 namespace App\Http\Repository;
 
-use App\Models\Announcement;
+use App\Models\Ads;
 use Illuminate\Support\Facades\Auth;
 
-class AnnouncementRepository
+class AdRepository
 {
     public function create($user, array $data)
     {
-        return $user->announcements()->create([
+        return $user->ads()->create([
             'title'       => $data['title'],
             'description' => strip_tags($data['description']),
             'budget'      => $data['budget'],
@@ -19,17 +19,17 @@ class AnnouncementRepository
 
     public function update($id, array $data)
     {
-        $announcement = Announcement::find($id);
+        $ad = Ads::find($id);
 
-        if ($announcement) {
-            $announcement->update([
+        if ($ad) {
+            $ad->update([
                 'title'       => $data['title'],
                 'description' => strip_tags($data['description']),
                 'budget'      => $data['budget'],
                 'image'       => $data['image'],
             ]);
 
-            return $announcement;
+            return $ad;
         }
 
         return null;

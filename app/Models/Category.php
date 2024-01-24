@@ -9,8 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
-    public function announcements()
+    public function ads()
     {
-        return $this->belongsToMany(Announcement::class);
+        return $this->belongsToMany(Ads::class);
     }
 }

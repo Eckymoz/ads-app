@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AnnouncementsController;
+use App\Http\Controllers\AdsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -26,13 +26,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/announcements/create',                [AnnouncementsController::class, 'create'])             ->name('announcements.create');
-    Route::get('/announcements/{announcement}/edit',   [AnnouncementsController::class, 'edit'])               ->name('announcements.edit');
-    Route::get('/announcements/{announcement}',        [AnnouncementsController::class, 'show'])               ->name('announcements.show');
-    Route::post('/announcements',                      [AnnouncementsController::class, 'store'])              ->name('announcements.store');
-    Route::put('/announcements/{announcement}/update', [AnnouncementsController::class, 'update'])             ->name('announcements.update');
-    Route::get('/announcements/user/{id}',             [AnnouncementsController::class, 'userAnnouncements'])  ->name('announcements.user');
-    Route::post('/announcements/filters',              [AnnouncementsController::class, 'announcementsFilter'])->name('announcements.filters');
+    Route::get('/ads/create',                [AdsController::class, 'create'])             ->name('ads.create');
+    Route::get('/ads/{ad}/edit',             [AdsController::class, 'edit'])               ->name('ads.edit');
+    Route::get('/ads/{ad}',                  [AdsController::class, 'show'])               ->name('ads.show');
+    Route::post('/ads',                      [AdsController::class, 'store'])              ->name('ads.store');
+    Route::put('/ads/{ad}/update',           [AdsController::class, 'update'])             ->name('ads.update');
+    Route::get('/ads/user/{id}',             [AdsController::class, 'userAds'])            ->name('ads.user');
+    Route::post('/ads/filters',              [AdsController::class, 'adsFilter'])          ->name('ads.filters');
 
 
     Route::get('/users/{user}/edit',  [UsersController::class, 'edit'])   ->name('users.edit');

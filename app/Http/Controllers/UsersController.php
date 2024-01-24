@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
-use App\Http\Services\AnnouncementService;
+use App\Http\Services\AdService;
 use App\Http\Services\UserService;
 use App\Mail\WelcomeMail;
 use App\Models\User;

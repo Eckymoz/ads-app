@@ -2,23 +2,23 @@
 
 namespace Database\Seeders;
 
-use App\Models\Announcement;
+use App\Models\Ads;
 use App\Models\Category;
 use Illuminate\Database\Seeder;
 
-class AnnouncementSeeder extends Seeder
+class AdsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $announcements = Announcement::all();
+        $ads = Ads::all();
 
-        $announcements->each(function ($announcement) {
+        $ads->each(function ($ad) {
             $categories = Category::inRandomOrder()->limit(3)->get();
 
-            $announcement->categories()->sync($categories->pluck('id'));
+            $ad->categories()->sync($categories->pluck('id'));
         });
     }
 }

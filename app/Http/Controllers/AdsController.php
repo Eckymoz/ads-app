@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AnnouncementRequest;
-use App\Http\Services\AnnouncementService;
-use App\Models\Announcement;
+use App\Http\Requests\AdRequest;
+use App\Http\Services\AdService;
+use App\Models\Ads;
 use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,68 +12,68 @@ use Illuminate\Support\Benchmark;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
-class AnnouncementsController extends Controller
+class AdsController extends Controller
 {
-    private $announcementService;
+    private $adsService;
 
-    public function __construct(AnnouncementService $announcementService)
+    public function __construct(AdService $adsService)
     {
-        $this->announcementService = $announcementService;
+        $this->adsService = $adsService;
     }
 
     public function create() {
 
         $categories = Category::all();
 
-        return view('announcements.create', compact('categories'));
+        return view('ads.create', compact('categories'));
     }
 
-    public function show(Announcement $announcement) {
+    public function show(Ads $ad) {
 
-        return view('announcements.show', compact('announcement'));
+        return view('ads.show', compact('ad'));
     }
 
-    public function store(AnnouncementRequest $request) {
+    public function store(AdRequest $request) {
 
         $data          = $request->validated();
         $user          = auth()->user();
         $categoryNames = $request->categories;
 
-        $this->announcementService->createAnnouncement($user, $data, $categoryNames);
+        $this->adsService->createAnnouncement($user, $data, $categoryNames);
 
         $request->session()->flash('success', 'Votre annonce a été créée avec succès.');
 
         return redirect()->route('home');
     }
 
-    public function edit(Announcement $announcement) {
+    public function edit(Ads $ad) {
 
         $categories             = Category::all();
-        $announcementCategories = $announcement->categories;
+        $adCategories           = $ad->categories;
 
-        return view('announcements.edit', compact('announcement','categories', 'announcementCategories'));
+        return view('ads.edit', compact('ad','categories', 'adCategories'));
     }
-    public function update(AnnouncementRequest $request, $announcement) {
+    public function update(AdRequest $request, $ad) {
 
         $data          = $request->validated();
         $categoryNames = $request->categories;
-        $this->announcementService->updateAnnouncement($announcement, $data, $categoryNames);
+        $this->adsService->updateAnnouncement($ad, $data, $categoryNames);
 
         $request->session()->flash('success', 'Votre annonce a été mise à jour avec succès.');
 
         return redirect()->route('home');
     }
 
-    public function userAnnouncements($id) {
+    public function userAds($id) {
 
         $user = User::findOrFail($id);
 
-        $announcements = Announcement::where('user_id', $user->id)->get();
+        $ads = Ads::where('user_id', $user->id)->get();
 
-        return view('announcements.user', ['announcements' => $announcements]);
+        return view('ads.user', ['ads' => $ads]);
     }
 
-    public function announcementsFilter(Request $request)
+    public function adsFilter(Request $request)
     {
         try {
 
@@ -83,7 +83,7 @@ class AnnouncementsController extends Controller
             $adsOrder   = $request->input('adsOrder');
 
             $page  = $request->input('page', 1);
-            $query = Announcement::with(['categories', 'user']);
+            $query = Ads::with(['categories', 'user']);
 
             if (!empty($categories)) {
                 $query->whereHas('categories', function ($query) use ($categories) {
@@ -99,9 +99,9 @@ class AnnouncementsController extends Controller
                 $query->orderBy('created_at', $adsOrder);
             }
 
-            $announcements = $query->paginate(5, ['*'], 'page', $page);
+            $ads = $query->paginate(5, ['*'], 'page', $page);
 
-            return response()->json($announcements);
+            return response()->json($ads);
 
         } catch (\Exception $e) {
 

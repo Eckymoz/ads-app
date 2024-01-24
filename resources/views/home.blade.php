@@ -10,7 +10,7 @@
             </div>
         @endif
 
-        <ads-list :announcements='@json($announcements)' :adscategories='@json($adsCategories)'></ads-list>
+        <ads-list :ads='@json($ads)' :adscategories='@json($adsCategories)'></ads-list>
 
     </div>
 @endsection

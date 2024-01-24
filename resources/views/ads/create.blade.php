@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 py-4">
-                <form class="card" method="POST" action="{{ route('announcements.store') }}" enctype="multipart/form-data">
+                <form class="card" method="POST" action="{{ route('ads.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card-header">
                         <h3 class="card-title">Créer une nouvelle annonce</h3>

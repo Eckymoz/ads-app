@@ -43,8 +43,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function announcements()
+    public function ads()
     {
-        return $this->hasMany(Announcement::class);
+        return $this->hasMany(Ads::class);
     }
 }

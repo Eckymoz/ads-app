@@ -27,14 +27,14 @@
                             </tr>
                             </thead>
                             <tbody class="table-tbody">
-                            @foreach($announcements as $announcement)
+                            @foreach($ads as $ad)
                                 <tr>
-                                    <td> {{ $announcement->title }} </td>
-                                    <td> {{ $announcement->created_at }} </td>
-                                    <td> {{ $announcement->user->name }} </td>
+                                    <td> {{ $ad->title }} </td>
+                                    <td> {{ $ad->created_at }} </td>
+                                    <td> {{ $ad->user->name }} </td>
                                     <td><span class="badge bg-yellow-lt">En attente de validation</span></td>
                                     <td>
-                                        <a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-primary">Editer
+                                        <a href="{{ route('ads.edit', $ad->id) }}" class="btn btn-primary">Editer
                                             <i class="ti ti-pencil ms-2"></i>
                                         </a>
                                     </td>
