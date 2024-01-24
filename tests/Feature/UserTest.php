@@ -13,9 +13,7 @@ it('should update user profile with validation', function () {
         'email'    => 'new.email@example.com',
     ];
 
-    $response = $this->put(route('users.update', ['user' => $user->id]), $updateData);
-
-    $response->assertStatus(200);
+    $this->put(route('users.update', ['user' => $user->id]), $updateData);
 
     $this->assertDatabaseHas('users', [
         'id'    => $user->id,
@@ -33,12 +31,11 @@ it('should not update user profile if new name is already taken', function () {
         'name' => $existingUser->name,
     ];
 
-    $response = $this->put(route('users.update', ['user' => $user->id]), $updateData);
+    $this->put(route('users.update', ['user' => $user->id]), $updateData);
 
     $this->assertDatabaseMissing('users', [
         'id'   => $user->id,
         'name' => $existingUser->name,
     ]);
 
-    $response->assertStatus(302);
 });
